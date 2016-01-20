@@ -1,0 +1,15 @@
+/* While in sport mode do this once per second */
+RESULT = SUUNTO_DURATION-SUUNTO_DURATION_PREV;
+/* definition de la duree d'echauffement */
+if (SUUNTO_LAP_NUMBER ==1){ prefix ="E"; if (SUUNTO_DURATION ==720) { Suunto.alarmBeep();}}
+/* definition de la duree des fractionnes en resistance dure (30" rapide) */
+if (Suunto.mod(SUUNTO_LAP_NUMBER,2)==0 ) { prefix =" "; if (SUUNTO_DURATION-SUUNTO_DURATION_PREV ==30){Suunto.alarmBeep();}}
+/* definition temps de recup entre chaque petit intervalle (ici 30" pour du 30/30) on exclue tour 21 car recup entre 2 series et tours 1 et 41 car echauff et recup */
+if (Suunto.mod(SUUNTO_LAP_NUMBER,2)==1 && SUUNTO_LAP_NUMBER!=1 && SUUNTO_LAP_NUMBER!=21 && SUUNTO_LAP_NUMBER!= 41) { prefix ="R"; if (SUUNTO_DURATION-SUUNTO_DURATION_PREV ==30 ){Suunto.alarmBeep();}}
+/* definition du temps de recup entre les deux series */
+if (SUUNTO_LAP_NUMBER == 21) {prefix ="R"; if (SUUNTO_DURATION-SUUNTO_DURATION_PREV==180) { Suunto.alarmBeep();}}
+if (SUUNTO_LAP_NUMBER ==41) { prefix ="F";}
+/* fin */
+
+/* vous pouvez modifier les valeurs de temps mais aussi de tour en remplacant par les valeurs correspondantes (faites un schema cela vous aidera
+cette app est valable uniquement dans le cas de 2 series (si vous en voulez 3 il faudra gerer autrement la fonction mod)*/

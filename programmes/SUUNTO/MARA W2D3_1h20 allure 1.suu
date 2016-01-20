@@ -1,0 +1,8 @@
+RESULT = SUUNTO_DURATION;
+postfix="@v1"; 
+if (SUUNTO_PACE > 5.55) { Suunto.alarmBeep();postfix="+545";}
+if (SUUNTO_PACE < 5.25) { Suunto.alarmBeep();postfix="-545";}
+if (SUUNTO_DURATION >= runTime) {
+	prefix="END";
+	Suunto.alarmBeep();
+}

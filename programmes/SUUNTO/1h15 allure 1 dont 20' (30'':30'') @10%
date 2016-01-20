@@ -1,0 +1,42 @@
+RESULT=Step;
+ 
+if (Step==0) {
+	postfix="v1: 6.40";
+	if (SUUNTO_PACE > 6.60) { Suunto.alarmBeep();postfix="PC MIN";}
+	if (SUUNTO_PACE < 6.20) { Suunto.alarmBeep();postfix="PC MAX";}
+	if (SUUNTO_DURATION - TmpDuration >= 1650) {
+		Suunto.alarmBeep();
+		Step=Step+1;
+		TmpDuration=SUUNTO_DURATION;
+	}
+}
+ else if (Step==1 || Step==3 || Step==5 || Step==7 || Step==9 || Step==11 || Step==13 || Step==15 || Step==17 || Step==19 || Step==21 || Step==23 || Step==25 || Step==27 || Step==29 || Step==31 || Step==33 || Step==35 || Step==37 || Step==39 || Step==41) {
+	postfix="high: 4.25";
+	if (SUUNTO_PACE > 4.40) { Suunto.alarmBeep();postfix="PC MIN";}
+	if (SUUNTO_PACE < 4.00) { Suunto.alarmBeep();postfix="PC MAX";}
+	if (SUUNTO_DURATION - TmpDuration >= 30) {
+		Suunto.alarmBeep();
+		Step=Step+1;
+		TmpDuration=SUUNTO_DURATION;
+	}
+}
+ else if (Step==2 || Step==4 || Step==6 || Step==8 || Step==10 || Step==12 || Step==14 || Step==16 || Step==18 || Step==20 || Step==22 || Step==24 || Step==26 || Step==28 || Step==30 || Step==32 || Step==34 || Step==36 || Step==38 || Step==40 || Step==42) {
+	postfix="low: 7,30";
+	if (SUUNTO_PACE > 7.50) { Suunto.alarmBeep();postfix="PC MIN";}
+	if (SUUNTO_PACE < 7.00) { Suunto.alarmBeep();postfix="PC MAX";}
+	if (SUUNTO_DURATION - TmpDuration >= 30) {
+		Suunto.alarmBeep();
+		Step=Step+1;
+		TmpDuration=SUUNTO_DURATION;
+	}
+}
+ else if (Step==43) {
+	postfix="v1: 6.40";
+	if (SUUNTO_PACE > 6.60) { Suunto.alarmBeep();postfix="PC MIN";}
+	if (SUUNTO_PACE < 6.20) { Suunto.alarmBeep();postfix="PC MAX";}
+	if (SUUNTO_DURATION - TmpDuration >= 1650) {
+		Suunto.alarmBeep();
+		Step=Step+1;
+		TmpDuration=SUUNTO_DURATION;
+	}
+}

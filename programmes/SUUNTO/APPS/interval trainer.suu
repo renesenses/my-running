@@ -1,0 +1,29 @@
+/* While in sport mode do this once per second */
+if (SUUNTO_DISTANCE < WarmupLength) {
+  prefix="Warm";
+  NextDistance = WarmupLength;
+  CurrentInterval = 0;
+} else if (CurrentInterval < 2*Intervals) {
+  if (SUUNTO_DISTANCE >= NextDistance) {
+    CurrentInterval = CurrentInterval + 1;
+    if (CurrentInterval == 2*Intervals) {
+      Suunto.alarmBeep();
+      Suunto.light();
+      NextDistance = NextDistance + CoolDownLength;
+      prefix = "Cool";
+    } else {
+      Suunto.alarmBeep();
+      Suunto.light();
+      if (Suunto.mod(CurrentInterval,2) == 1) {
+        NextDistance = NextDistance + HighIntensityLength;
+        prefix="High";
+      } else {
+        NextDistance = NextDistance + RecoveryLength;
+        prefix="Rec";
+      }
+    }
+  }
+}
+
+RESULT=NextDistance - SUUNTO_DISTANCE;
+

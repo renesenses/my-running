@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS fractionne (
 	frac_hallureid	DATE						NOT NULL,
 	frac_lduration	DATE						NOT NULL,
 	frac_lallureid	DATE						NOT NULL,
+	frac_ecart		DATE						NOT NULL,
 	frac_duration	DATE						NOT NULL,
 	CONSTRAINT ctfractionne UNIQUE (frac_lib, frac_planid),
 	FOREIGN KEY(frac_planid) REFERENCES plan(plan_id),

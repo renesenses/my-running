@@ -26,50 +26,46 @@ __PACKAGE__->table("base");
 =head2 base_lib
 
   data_type: 'text'
-  is_nullable: 0
-
-=head2 base_planid
-
-  data_type: 'text'
   is_foreign_key: 1
   is_nullable: 0
 
-=head2 base_week
+=head2 base_type
 
-  data_type: 'text'
+  data_type: 'char'
+  default_value: 'b'
+  is_foreign_key: 1
   is_nullable: 0
+  size: 1
 
-=head2 base_day
+=head2 base_proglib
 
   data_type: 'text'
+  is_foreign_key: 1
   is_nullable: 0
 
 =head2 base_allureid
 
-  data_type: 'date'
+  data_type: 'text'
   is_foreign_key: 1
-  is_nullable: 0
-
-=head2 base_duration
-
-  data_type: 'date'
   is_nullable: 0
 
 =cut
 
 __PACKAGE__->add_columns(
   "base_lib",
-  { data_type => "text", is_nullable => 0 },
-  "base_planid",
   { data_type => "text", is_foreign_key => 1, is_nullable => 0 },
-  "base_week",
-  { data_type => "text", is_nullable => 0 },
-  "base_day",
-  { data_type => "text", is_nullable => 0 },
+  "base_type",
+  {
+    data_type => "char",
+    default_value => "b",
+    is_foreign_key => 1,
+    is_nullable => 0,
+    size => 1,
+  },
+  "base_proglib",
+  { data_type => "text", is_foreign_key => 1, is_nullable => 0 },
   "base_allureid",
-  { data_type => "date", is_foreign_key => 1, is_nullable => 0 },
-  "base_duration",
-  { data_type => "date", is_nullable => 0 },
+  { data_type => "text", is_foreign_key => 1, is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -86,26 +82,19 @@ __PACKAGE__->set_primary_key("base_lib");
 
 =head1 UNIQUE CONSTRAINTS
 
-=head2 C<base_lib_base_planid_base_week_base_day_unique>
+=head2 C<base_lib_base_type_unique>
 
 =over 4
 
 =item * L</base_lib>
 
-=item * L</base_planid>
-
-=item * L</base_week>
-
-=item * L</base_day>
+=item * L</base_type>
 
 =back
 
 =cut
 
-__PACKAGE__->add_unique_constraint(
-  "base_lib_base_planid_base_week_base_day_unique",
-  ["base_lib", "base_planid", "base_week", "base_day"],
-);
+__PACKAGE__->add_unique_constraint("base_lib_base_type_unique", ["base_lib", "base_type"]);
 
 =head1 RELATIONS
 
@@ -124,24 +113,28 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
-=head2 base_planid
+=head2 step
 
 Type: belongs_to
 
-Related object: L<Programme::Schema::Result::Plan>
+Related object: L<Programme::Schema::Result::Step>
 
 =cut
 
 __PACKAGE__->belongs_to(
-  "base_planid",
-  "Programme::Schema::Result::Plan",
-  { plan_id => "base_planid" },
+  "step",
+  "Programme::Schema::Result::Step",
+  {
+    step_lib     => "base_lib",
+    step_proglib => "base_proglib",
+    step_type    => "base_type",
+  },
   { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07043 @ 2016-01-10 19:49:05
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:o8N8aerv6dtw9/FOtZe6WQ
+# Created by DBIx::Class::Schema::Loader v0.07043 @ 2016-01-11 18:56:30
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5PlsEf/InjK6VErSBV6Ang
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

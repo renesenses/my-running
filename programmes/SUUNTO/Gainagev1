@@ -1,0 +1,18 @@
+RESULT=Step;
+prefix="NO EXO"
+if (Step==0 || Step==2 || Step==4 || Step==6 || Step==8 || Step==10 || Step==12 || Step==14 || Step==16 || Step==18 || Step==20 || Step==22 || Step==24 || Step==26 || Step==28 || Step==30 || Step==32 || Step==34 )) {
+	postfix="WORK";
+	if (SUUNTO_DURATION - TmpDuration >= 30) {
+		Suunto.alarmBeep();
+		Step=Step+1;
+		TmpDuration=SUUNTO_DURATION;
+	}
+}
+else if (Step==1 || Step==3 || Step==5 || Step==7 || Step==9 || Step==11 || Step==13 || Step==15 || Step==17 || Step==19 || Step==21 || Step==23 || Step==25 || Step==27 || Step==29 || Step==31 || Step==33 ) {
+	postfix="RECUP";
+	if (SUUNTO_DURATION - TmpDuration >= 30) {
+		Suunto.alarmBeep();
+		Step=Step+1;
+		TmpDuration=SUUNTO_DURATION;
+	}
+}

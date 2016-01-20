@@ -1,0 +1,46 @@
+RESULT=MyStep;
+if (Step==0) {
+	prefix="30";
+	postfix="@1"; 
+	if (SUUNTO_PACE > 6.00) { Suunto.alarmBeep();postfix="+545";}
+	if (SUUNTO_PACE < 5.30) { Suunto.alarmBeep();postfix="-545";}
+	if (SUUNTO_DURATION - TmpDuration >= 1800) {
+		Suunto.alarmBeep();
+		Step=Step+1;
+		MyStep=MyStep+1; 
+		TmpDuration=SUUNTO_DURATION;
+	}
+}
+else if (Step==1 || Step==3 || Step==5) {
+	prefix ="10";
+	postfix = "@4";  
+	if (SUUNTO_PACE > 5.35) { Suunto.alarmBeep();postfix="+520";}
+	if (SUUNTO_PACE > 5.05) { Suunto.alarmBeep();postfix="-520";}
+	if (SUUNTO_DURATION - TmpDuration >= 600) {
+		Suunto.alarmBeep();
+		Step=Step+1;
+		TmpDuration=SUUNTO_DURATION;
+	}
+}
+else if (Step==2 || Step==4) {
+	prefix ="1";
+	postfix = "@0"; 
+	if (SUUNTO_PACE < 7.00) { Suunto.alarmBeep();postfix="-v0";}
+	if (SUUNTO_DURATION - TmpDuration >= 60) {
+		Suunto.alarmBeep();
+		Step=Step+1;
+		TmpDuration=SUUNTO_DURATION;
+	}
+}
+else if (Step==6) {
+ 	MyStep=99;
+	prefix="43";
+	postfix="@1"; 
+	if (SUUNTO_PACE > 6.00) { Suunto.alarmBeep();postfix="+545";}
+	if (SUUNTO_PACE < 5.30) { Suunto.alarmBeep();postfix="-545";}
+	if (SUUNTO_DURATION - TmpDuration >= 2580) {
+		Suunto.alarmBeep();
+		Step=Step+1;
+		TmpDuration=SUUNTO_DURATION;
+	}
+}

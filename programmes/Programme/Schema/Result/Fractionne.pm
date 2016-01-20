@@ -26,25 +26,24 @@ __PACKAGE__->table("fractionne");
 =head2 frac_lib
 
   data_type: 'text'
+  is_foreign_key: 1
   is_nullable: 0
 
-=head2 frac_planid
+=head2 frac_type
+
+  data_type: 'char'
+  default_value: 'f'
+  is_foreign_key: 1
+  is_nullable: 0
+  size: 1
+
+=head2 frac_proglib
 
   data_type: 'text'
   is_foreign_key: 1
   is_nullable: 0
 
-=head2 frac_week
-
-  data_type: 'text'
-  is_nullable: 0
-
-=head2 frac_day
-
-  data_type: 'text'
-  is_nullable: 0
-
-=head2 frac_nbsteps
+=head2 frac_repets
 
   data_type: 'integer'
   is_nullable: 0
@@ -56,7 +55,7 @@ __PACKAGE__->table("fractionne");
 
 =head2 frac_hallureid
 
-  data_type: 'date'
+  data_type: 'text'
   is_foreign_key: 1
   is_nullable: 0
 
@@ -67,38 +66,35 @@ __PACKAGE__->table("fractionne");
 
 =head2 frac_lallureid
 
-  data_type: 'date'
+  data_type: 'text'
   is_foreign_key: 1
-  is_nullable: 0
-
-=head2 frac_duration
-
-  data_type: 'date'
   is_nullable: 0
 
 =cut
 
 __PACKAGE__->add_columns(
   "frac_lib",
-  { data_type => "text", is_nullable => 0 },
-  "frac_planid",
   { data_type => "text", is_foreign_key => 1, is_nullable => 0 },
-  "frac_week",
-  { data_type => "text", is_nullable => 0 },
-  "frac_day",
-  { data_type => "text", is_nullable => 0 },
-  "frac_nbsteps",
+  "frac_type",
+  {
+    data_type => "char",
+    default_value => "f",
+    is_foreign_key => 1,
+    is_nullable => 0,
+    size => 1,
+  },
+  "frac_proglib",
+  { data_type => "text", is_foreign_key => 1, is_nullable => 0 },
+  "frac_repets",
   { data_type => "integer", is_nullable => 0 },
   "frac_hduration",
   { data_type => "date", is_nullable => 0 },
   "frac_hallureid",
-  { data_type => "date", is_foreign_key => 1, is_nullable => 0 },
+  { data_type => "text", is_foreign_key => 1, is_nullable => 0 },
   "frac_lduration",
   { data_type => "date", is_nullable => 0 },
   "frac_lallureid",
-  { data_type => "date", is_foreign_key => 1, is_nullable => 0 },
-  "frac_duration",
-  { data_type => "date", is_nullable => 0 },
+  { data_type => "text", is_foreign_key => 1, is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -115,19 +111,19 @@ __PACKAGE__->set_primary_key("frac_lib");
 
 =head1 UNIQUE CONSTRAINTS
 
-=head2 C<frac_lib_frac_planid_unique>
+=head2 C<frac_lib_frac_type_unique>
 
 =over 4
 
 =item * L</frac_lib>
 
-=item * L</frac_planid>
+=item * L</frac_type>
 
 =back
 
 =cut
 
-__PACKAGE__->add_unique_constraint("frac_lib_frac_planid_unique", ["frac_lib", "frac_planid"]);
+__PACKAGE__->add_unique_constraint("frac_lib_frac_type_unique", ["frac_lib", "frac_type"]);
 
 =head1 RELATIONS
 
@@ -161,24 +157,28 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
-=head2 frac_planid
+=head2 step
 
 Type: belongs_to
 
-Related object: L<Programme::Schema::Result::Plan>
+Related object: L<Programme::Schema::Result::Step>
 
 =cut
 
 __PACKAGE__->belongs_to(
-  "frac_planid",
-  "Programme::Schema::Result::Plan",
-  { plan_id => "frac_planid" },
+  "step",
+  "Programme::Schema::Result::Step",
+  {
+    step_lib     => "frac_lib",
+    step_proglib => "frac_proglib",
+    step_type    => "frac_type",
+  },
   { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07043 @ 2016-01-10 19:49:05
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:+fWs0WmStgGwd4b73S9wdQ
+# Created by DBIx::Class::Schema::Loader v0.07043 @ 2016-01-11 18:56:30
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:vTsytPXsFcug9J2LIiLhIQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

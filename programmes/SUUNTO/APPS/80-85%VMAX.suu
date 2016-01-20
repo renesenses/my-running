@@ -1,0 +1,41 @@
+/* 
+- Rythme Allure Specifique Marathon (AS42)(80-85%) - Lecture en % Karvonen
+- Specific pace (Marathon) (SP42) (80-85%) - Reading in HR % Karvonen
+
+- Pensez a regler correctement votre frequence cardiaque (FC Min et Max)
+- Remember to set your heart rate properly (HR Min and Max)
+
+- Pas de limite de temps ou de distance
+- No limit of time or distance
+
+- UTILISATION
+- Appuyer sur "START-STOP" et ensuite sur "NEXT" pour selectionner votre exercice
+- Pressez "START-STOP" - pour demarrer
+- Pour arreter votre exercice, appuyer longuement sur "START-STOP" 
+
+- USING
+- Choose your target area on "START-STOP" and then "NEXT" to select and star your target
+- Then press "START-STOP" - to start
+- Press "START-STOP" by a long press to stop the exercice
+
+- If he application you like, called me, thank you and enjoy*/
+
+RESULT=((SUUNTO_HR_AVG[5]-SUUNTO_USER_REST_HR)/(SUUNTO_USER_MAX_HR-SUUNTO_USER_REST_HR))*100;
+
+/*----------------------------------ZONE CIBLE-------------------------*/
+ if (RESULT<80)
+    /*Vous devez accelerer - You must accelerate - "ACC" */
+    {Suunto.alarmBeep();Suunto.light();prefix = "ACC";postfix = "%FC";}
+  
+ if (RESULT>=80 && RESULT<=85)
+    /*Bon rythme, bien - Good pace well - "OK" */
+    {prefix = "OK";postfix = "%FC";}
+ 
+ if (RESULT>85 && RESULT<88)
+    /*Ralentissez votre rythme - Slow down your pace - "SLO" */
+    {Suunto.alarmBeep();Suunto.light();prefix = "SLO";postfix = "%FC";}
+  
+ if (RESULT>88)
+    /*Arreter votre rythme vous allez trop vite - Stop your pace, you're going too fast*/
+    {Suunto.alarmBeep();Suunto.light();prefix = "ST";RESULT=0;postfix = "P";}
+

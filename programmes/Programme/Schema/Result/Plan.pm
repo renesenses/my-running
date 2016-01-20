@@ -25,8 +25,9 @@ __PACKAGE__->table("plan");
 
 =head2 plan_id
 
-  data_type: 'text'
+  data_type: 'binary'
   is_nullable: 0
+  size: 8
 
 =head2 plan_name
 
@@ -43,7 +44,7 @@ __PACKAGE__->table("plan");
 
 __PACKAGE__->add_columns(
   "plan_id",
-  { data_type => "text", is_nullable => 0 },
+  { data_type => "binary", is_nullable => 0, size => 8 },
   "plan_name",
   { data_type => "text", is_nullable => 0 },
   "plan_authorname",
@@ -64,36 +65,6 @@ __PACKAGE__->set_primary_key("plan_id");
 
 =head1 RELATIONS
 
-=head2 bases
-
-Type: has_many
-
-Related object: L<Programme::Schema::Result::Base>
-
-=cut
-
-__PACKAGE__->has_many(
-  "bases",
-  "Programme::Schema::Result::Base",
-  { "foreign.base_planid" => "self.plan_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 fractionnes
-
-Type: has_many
-
-Related object: L<Programme::Schema::Result::Fractionne>
-
-=cut
-
-__PACKAGE__->has_many(
-  "fractionnes",
-  "Programme::Schema::Result::Fractionne",
-  { "foreign.frac_planid" => "self.plan_id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 plan_authorname
 
 Type: belongs_to
@@ -109,9 +80,24 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
+=head2 programmes
 
-# Created by DBIx::Class::Schema::Loader v0.07043 @ 2016-01-10 19:49:05
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:VuADFEJE6xaNq4xp7DKwWQ
+Type: has_many
+
+Related object: L<Programme::Schema::Result::Programme>
+
+=cut
+
+__PACKAGE__->has_many(
+  "programmes",
+  "Programme::Schema::Result::Programme",
+  { "foreign.prog_planid" => "self.plan_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07043 @ 2016-01-11 18:56:30
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:y8I28MO56s69iDbIqYs5ew
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

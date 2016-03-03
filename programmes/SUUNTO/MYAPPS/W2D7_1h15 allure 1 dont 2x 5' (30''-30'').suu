@@ -1,0 +1,78 @@
+RESULT = runTime - SUUNTO_DURATION;
+if (Step==1) {
+	prefix="@v1";
+	postfix=""; 
+	if (SUUNTO_PACE > 5.55) { Suunto.alarmBeep();postfix="+545";}
+	if (SUUNTO_PACE < 5.25) { Suunto.alarmBeep();postfix="-545";}
+	if (SUUNTO_DURATION - TmpDuration >= warmupTime) {
+		Suunto.alarmBeep();
+		Step=Step+1;
+		TmpDuration=SUUNTO_DURATION;
+	}
+}
+else if (Step==2 || Step==4 || Step==6 || Step==8 || Step==10) {
+	RESULT = 30 +TmpDuration - SUUNTO_DURATION;
+	prefix ="@++";
+	postfix ="";  
+	if (SUUNTO_PACE > 4.30) { Suunto.alarmBeep();postfix="+++";}
+	if (SUUNTO_DURATION - TmpDuration >= 30) {
+		Suunto.alarmBeep();
+		Step=Step+1;
+		TmpDuration=SUUNTO_DURATION;
+	}
+}
+else if (Step==3 || Step==5 || Step==7 || Step==9 || Step==11) {
+	RESULT = 30 +TmpDuration - SUUNTO_DURATION;
+	prefix ="REC";
+	postfix ="";  
+	if (SUUNTO_PACE < 7.00) { Suunto.alarmBeep();postfix="---";}
+	if (SUUNTO_DURATION - TmpDuration >= 30) {
+		Suunto.alarmBeep();
+		Step=Step+1;
+		TmpDuration=SUUNTO_DURATION;
+	}
+}
+if (Step==12) {
+	RESULT = runTime - SUUNTO_DURATION;
+	prefix="@v1";
+	postfix=""; 
+	if (SUUNTO_PACE > 5.55) { Suunto.alarmBeep();postfix="+545";}
+	if (SUUNTO_PACE < 5.25) { Suunto.alarmBeep();postfix="-545";}
+	if (SUUNTO_DURATION - TmpDuration >= 600) {
+		Suunto.alarmBeep();
+		Step=Step+1;
+		TmpDuration=SUUNTO_DURATION;
+	}
+}
+else if (Step==13 || Step==15 || Step==17 || Step==19 || Step==21) {
+	RESULT = 30 +TmpDuration - SUUNTO_DURATION;
+	prefix ="@++";
+	postfix ="";  
+	if (SUUNTO_PACE > 4.30) { Suunto.alarmBeep();postfix="+++";}
+	if (SUUNTO_DURATION - TmpDuration >= 30) {
+		Suunto.alarmBeep();
+		Step=Step+1;
+		TmpDuration=SUUNTO_DURATION;
+	}
+}
+else if (Step==14 || Step==16 || Step==18 || Step==20 || Step==22) {
+	RESULT = 30 +TmpDuration - SUUNTO_DURATION;
+	prefix ="REC";
+	postfix ="";  
+	if (SUUNTO_PACE < 7.00) { Suunto.alarmBeep();postfix="---";}
+	if (SUUNTO_DURATION - TmpDuration >= 30) {
+		Suunto.alarmBeep();
+		Step=Step+1;
+		TmpDuration=SUUNTO_DURATION;
+	}
+}
+if (Step==23) {
+	RESULT = runTime - SUUNTO_DURATION;
+	prefix="@v0";
+	postfix=""; 
+	if (SUUNTO_DURATION - TmpDuration >= 600) {
+		Suunto.alarmBeep();
+		Step=Step+1;
+		TmpDuration=SUUNTO_DURATION;
+	}
+}

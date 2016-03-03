@@ -1,0 +1,7 @@
+RESULT = runTime - SUUNTO_DURATION;
+postfix=""; 
+if (SUUNTO_PACE > 6.15) { Suunto.alarmBeep();postfix="->6'";}
+if (SUUNTO_PACE < 5.45) { Suunto.alarmBeep();postfix="6'<-";}
+if (SUUNTO_DURATION >= runTime) {
+	Suunto.alarmBeep();
+}

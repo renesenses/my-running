@@ -1,4 +1,4 @@
-RESULT=Step;
+RESULT=;
 if (Step==0) {
 	prefix="40";
 	postfix="v1"; 
